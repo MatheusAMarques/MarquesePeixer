@@ -97,6 +97,68 @@
       html { scroll-behavior: auto !important; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
+
+    /* ===== Assistente de Triagem ===== */
+    .tb-launcher { position: fixed; right: 24px; bottom: 24px; z-index: 60; width: 62px; height: 62px; border-radius: 9999px; background: #0C1A30; color: #E4C994; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(213,174,98,.55); box-shadow: 0 14px 32px -10px rgba(8,18,32,.55); cursor: pointer; transition: transform .2s ease, background .2s ease; }
+    .tb-launcher:hover { transform: scale(1.06); background: #14243B; }
+    .tb-launcher svg { width: 28px; height: 28px; }
+    .tb-launcher .tb-dot { position: absolute; top: 4px; right: 4px; width: 12px; height: 12px; border-radius: 9999px; background: #D5AE62; border: 2px solid #0C1A30; }
+    .tb-hint { position: fixed; right: 96px; bottom: 34px; z-index: 60; max-width: 240px; background: #fff; color: #0C1A30; border: 1px solid #EFECE6; border-radius: 12px; padding: 10px 30px 10px 14px; font-size: 13px; font-weight: 600; line-height: 1.4; box-shadow: 0 12px 30px -10px rgba(8,18,32,.3); cursor: pointer; font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+    .tb-hint[hidden] { display: none; }
+    .tb-hint button { position: absolute; top: 4px; right: 6px; background: none; border: 0; font-size: 16px; color: #94a3b8; cursor: pointer; line-height: 1; padding: 4px; }
+    .tb-panel { position: fixed; right: 24px; bottom: 98px; z-index: 61; width: min(392px, calc(100vw - 32px)); height: min(640px, calc(100vh - 124px)); background: #fff; border: 1px solid #EFECE6; border-radius: 16px; box-shadow: 0 28px 70px -16px rgba(8,18,32,.4); display: flex; flex-direction: column; overflow: hidden; font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+    .tb-panel[hidden] { display: none; }
+    .tb-head { background: #0C1A30; color: #fff; padding: 14px 14px 14px 16px; display: flex; align-items: center; gap: 12px; }
+    .tb-avatar { width: 40px; height: 40px; border-radius: 9999px; border: 1px solid #D5AE62; color: #E4C994; display: flex; align-items: center; justify-content: center; font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+    .tb-title { font-family: "Playfair Display", Georgia, serif; font-weight: 700; font-size: 15px; line-height: 1.2; }
+    .tb-sub { font-size: 11px; color: #E4C994; letter-spacing: .04em; margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+    .tb-sub::before { content: ""; width: 7px; height: 7px; border-radius: 9999px; background: #34d399; }
+    .tb-head-actions { margin-left: auto; display: flex; gap: 2px; }
+    .tb-icon-btn { width: 34px; height: 34px; border-radius: 8px; background: transparent; border: 0; color: #cbd5e1; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; }
+    .tb-icon-btn:hover { background: rgba(255,255,255,.08); color: #fff; }
+    .tb-icon-btn svg { width: 18px; height: 18px; }
+    .tb-messages { flex: 1; overflow-y: auto; padding: 16px; background: #FAF9F6; display: flex; flex-direction: column; gap: 10px; }
+    .tb-msg { max-width: 86%; padding: 10px 13px; border-radius: 14px; font-size: 14px; line-height: 1.5; white-space: pre-line; word-wrap: break-word; }
+    .tb-bot { align-self: flex-start; background: #fff; border: 1px solid #EFECE6; color: #1E293B; border-top-left-radius: 4px; }
+    .tb-user { align-self: flex-end; background: #0C1A30; color: #fff; border-top-right-radius: 4px; }
+    .tb-alert { background: #FFF8EB; border-color: #E4C994; }
+    .tb-msg a { color: #9A7008; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+    .tb-summary { white-space: normal; }
+    .tb-summary dl { margin: 8px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 13px; }
+    .tb-summary dt { color: #9A7008; font-weight: 700; }
+    .tb-summary dd { margin: 0; color: #0C1A30; white-space: pre-line; }
+    .tb-typing { align-self: flex-start; background: #fff; border: 1px solid #EFECE6; border-radius: 14px; border-top-left-radius: 4px; padding: 12px 14px; display: flex; gap: 4px; }
+    .tb-typing span { width: 6px; height: 6px; border-radius: 9999px; background: #B8860B; opacity: .4; animation: tbBlink 1.2s infinite; }
+    .tb-typing span:nth-child(2) { animation-delay: .2s; }
+    .tb-typing span:nth-child(3) { animation-delay: .4s; }
+    @keyframes tbBlink { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+    .tb-options { padding: 12px; border-top: 1px solid #EFECE6; display: flex; flex-wrap: wrap; gap: 8px; max-height: 46%; overflow-y: auto; background: #fff; }
+    .tb-options:empty { display: none; }
+    .tb-opt { border: 1px solid #D5AE62; background: #fff; color: #0C1A30; font-size: 13px; font-weight: 600; padding: 8px 13px; border-radius: 9999px; cursor: pointer; text-decoration: none; line-height: 1.3; text-align: left; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; }
+    .tb-opt:hover { background: #FAF4E8; }
+    .tb-opt.primary { background: #0C1A30; border-color: #0C1A30; color: #fff; }
+    .tb-opt.primary:hover { background: #14243B; }
+    .tb-opt.wa { background: #059669; border-color: #059669; color: #fff; }
+    .tb-opt.wa:hover { background: #047857; }
+    .tb-opt.ghost { border-color: #EFECE6; color: #64748b; }
+    .tb-opt svg { width: 16px; height: 16px; }
+    .tb-input { padding: 10px 12px; border-top: 1px solid #EFECE6; display: flex; gap: 8px; align-items: flex-end; background: #fff; }
+    .tb-input[hidden] { display: none; }
+    .tb-input textarea { flex: 1; resize: none; border: 1px solid #EFECE6; background: #FAF9F6; border-radius: 10px; padding: 10px 12px; font-size: 14px; font-family: inherit; color: #0C1A30; max-height: 120px; line-height: 1.4; }
+    .tb-input textarea:focus { outline: none; border-color: #B8860B; box-shadow: 0 0 0 1px #B8860B; }
+    .tb-send { width: 42px; height: 42px; border-radius: 10px; background: #0C1A30; color: #E4C994; border: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+    .tb-send:hover { background: #14243B; }
+    .tb-send svg { width: 18px; height: 18px; }
+    .tb-input-extra { padding: 0 12px 8px; background: #fff; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #94a3b8; }
+    .tb-input-extra[hidden] { display: none; }
+    .tb-input-extra button { background: none; border: 0; color: #9A7008; font-weight: 700; font-size: 12px; cursor: pointer; font-family: inherit; }
+    .tb-error { color: #b91c1c; font-weight: 600; }
+    .tb-foot { font-size: 10.5px; color: #94a3b8; text-align: center; padding: 7px 10px; border-top: 1px solid #EFECE6; background: #fff; }
+    @media (max-width: 640px) {
+      .tb-panel { inset: 0; right: 0; bottom: 0; width: 100%; height: 100%; height: 100dvh; border-radius: 0; border: 0; }
+      .tb-hint { right: 92px; bottom: 32px; max-width: 200px; }
+      body.tb-open .tb-launcher, body.tb-open .tb-hint { display: none; }
+    }
 </style>
 </head>
 <body class="bg-alabaster text-slate-700 font-sans antialiased selection:bg-gold-200 selection:text-navy-950" style="background-color: rgb(250, 249, 246); background-image: radial-gradient(circle at 50% 0%, rgba(213, 174, 98, 0.05) 0%, transparent 65%), linear-gradient(rgba(197, 155, 75, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(197, 155, 75, 0.035) 1px, transparent 1px); background-size: 100% auto, 72px 72px, 72px 72px; background-attachment: fixed;">
@@ -110,9 +172,9 @@
 
 <!-- BEGIN: Header -->
 <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-sand shadow-sm">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
 <div class="flex items-center justify-between h-24">
-<a class="flex flex-col group py-2" href="#inicio"><span class="font-serif tracking-[0.18em] text-base font-bold text-navy-900 uppercase group-hover:text-gold-600 transition-colors whitespace-nowrap block">Marques &amp; Peixer</span><div class="flex items-center gap-1.5 mt-0.5"><span class="h-px w-4 bg-gold-500"></span><span class="text-[9px] uppercase tracking-[0.24em] text-gold-600 font-semibold">Advogados Associados</span><span class="text-[9px] text-slate-400 font-medium hidden md:inline">• Desde 2015</span></div></a>
+<a class="flex flex-col group py-2" href="#inicio"><span class="font-serif tracking-[0.18em] text-base font-bold text-navy-900 uppercase group-hover:text-gold-600 transition-colors whitespace-nowrap block">Marques &amp; Peixer</span><div class="flex items-center gap-1.5 mt-0.5"><span class="h-px w-4 bg-gold-500"></span><span class="text-[9px] uppercase tracking-[0.24em] text-gold-600 font-semibold">Advogados Associados</span><span class="text-[9px] text-slate-400 font-medium hidden md:inline"></span></div></a>
 <nav aria-label="Navegação principal" class="hidden xl:flex items-center gap-8 text-[11px] tracking-[0.18em] uppercase font-semibold text-navy-900">
 <a class="hover:text-gold-600 transition-colors py-1 border-b-2 border-transparent hover:border-gold-500" href="#inicio">Início</a>
 <a class="hover:text-gold-600 transition-colors py-1 border-b-2 border-transparent hover:border-gold-500" href="#sobre">Quem Somos</a>
@@ -357,7 +419,8 @@
 <div class="lg:col-span-7">
 <div class="bg-white p-8 sm:p-10 rounded-sm border border-sand shadow-lg">
 <h3 class="font-serif text-2xl font-bold text-navy-900 mb-2">Solicitar Atendimento</h3>
-<p class="text-xs text-slate-500 mb-6 font-medium">Preencha os campos abaixo. Ao enviar, o WhatsApp do escritório será aberto com sua mensagem já escrita — é só tocar em enviar.</p>
+<p class="text-xs text-slate-500 mb-4 font-medium">Preencha os campos abaixo. Ao enviar, o WhatsApp do escritório será aberto com sua mensagem já escrita — é só tocar em enviar.</p>
+<button class="w-full mb-6 flex items-center justify-between gap-3 p-4 rounded-sm border border-gold-400/60 bg-gold-100/60 hover:bg-gold-100 text-left transition-colors" data-open-triagem type="button"><span><span class="block text-xs uppercase tracking-wider font-bold text-navy-900">Prefere ser guiado?</span><span class="block text-xs text-slate-600 mt-0.5">Faça a triagem com nosso assistente em menos de 2 minutos.</span></span><span aria-hidden="true" class="text-gold-600 font-bold">→</span></button>
 <form class="space-y-5" id="contact-form" novalidate>
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
 <div>
@@ -460,14 +523,421 @@ Enviar pelo WhatsApp
 </footer>
 <!-- END: Footer -->
 
-<!-- Botão flutuante do WhatsApp -->
-<div class="fixed bottom-6 right-6 z-50 flex items-center group">
-<span class="hidden sm:block mr-3 px-3 py-1.5 text-xs font-bold text-white bg-navy-900 rounded-sm shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">Fale Conosco</span>
-<a aria-label="Falar pelo WhatsApp com Marques &amp; Peixer Advogados Associados" class="w-14 h-14 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 relative hover:bg-emerald-500" href="https://wa.me/5511955521515" rel="noopener noreferrer" target="_blank">
-<span class="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-25"></span>
-<svg aria-hidden="true" class="w-7 h-7 relative z-10"><use href="#icon-whatsapp"/></svg>
-</a>
+<!-- BEGIN: Assistente de Triagem -->
+<div class="tb-hint" hidden id="tb-hint" role="button" tabindex="0">
+Olá! Posso ajudar a direcionar o seu caso em menos de 2 minutos.
+<button aria-label="Fechar aviso" id="tb-hint-close" type="button">×</button>
 </div>
+<button aria-controls="tb-panel" aria-expanded="false" aria-label="Abrir assistente de triagem" class="tb-launcher" id="tb-launcher" type="button">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01" stroke-width="2.6"/></svg>
+<span class="tb-dot"></span>
+</button>
+
+<section aria-labelledby="tb-title" class="tb-panel" hidden id="tb-panel" role="dialog">
+<div class="tb-head">
+<div aria-hidden="true" class="tb-avatar">M&amp;P</div>
+<div>
+<div class="tb-title" id="tb-title">Assistente de Triagem</div>
+<div class="tb-sub">Marques &amp; Peixer Advogados</div>
+</div>
+<div class="tb-head-actions">
+<a aria-label="Falar direto no WhatsApp" class="tb-icon-btn" href="https://wa.me/5511955521515" rel="noopener noreferrer" target="_blank" title="Falar direto no WhatsApp"><svg aria-hidden="true"><use href="#icon-whatsapp"/></svg></a>
+<button aria-label="Recomeçar triagem" class="tb-icon-btn" id="tb-restart" title="Recomeçar" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+<button aria-label="Fechar assistente" class="tb-icon-btn" id="tb-close" title="Fechar" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+</div>
+<div aria-live="polite" class="tb-messages" id="tb-messages"></div>
+<div class="tb-options" id="tb-options"></div>
+<form class="tb-input" hidden id="tb-input">
+<label class="sr-only" for="tb-text" id="tb-text-label">Sua resposta</label>
+<textarea id="tb-text" rows="1"></textarea>
+<button aria-label="Enviar resposta" class="tb-send" type="submit"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+</form>
+<div class="tb-input-extra" hidden id="tb-input-extra"><span id="tb-input-info"></span><button hidden id="tb-skip" type="button">Pular</button></div>
+<div class="tb-foot">Assistente automático · não substitui a análise de um advogado</div>
+</section>
+
+<script>
+(() => {
+  const WA_NUMBER = '5511955521515';
+
+  const AREAS = [
+    { label: 'Trabalhista', nome: 'Direito Trabalhista', q: 'Qual dessas situações se parece mais com a sua?',
+      subs: ['Demissão ou verbas rescisórias', 'Horas extras ou adicionais', 'Acidente ou doença do trabalho', 'Assédio no trabalho', 'Outro assunto trabalhista'] },
+    { label: 'Previdenciário / INSS', nome: 'Direito Previdenciário', q: 'Sobre o que é a sua questão com a previdência?',
+      subs: ['Aposentadoria', 'Benefício negado ou cortado', 'Auxílio por incapacidade', 'Revisão de benefício', 'Planejamento previdenciário', 'Outro'] },
+    { label: 'Família / Civil', nome: 'Direito Civil', q: 'Qual é o assunto?',
+      subs: ['Divórcio, guarda ou pensão', 'Inventário ou herança', 'Contratos ou cobranças', 'Indenização por danos', 'Outro'] },
+    { label: 'Consumidor', nome: 'Direito do Consumidor', q: 'O que aconteceu?',
+      subs: ['Cobrança indevida ou nome negativado', 'Plano de saúde', 'Banco ou financeira', 'Produto ou serviço com problema', 'Outro'] },
+    { label: 'Imóveis', nome: 'Direito Imobiliário', q: 'Qual é a situação com o imóvel?',
+      subs: ['Compra e venda', 'Aluguel ou despejo', 'Usucapião ou regularização', 'Condomínio', 'Outro'] },
+    { label: 'Criminal', nome: 'Direito Penal', q: 'Qual é a situação?',
+      subs: ['Alguém foi preso agora', 'Recebi intimação ou há inquérito', 'Já existe processo criminal', 'Outro'] },
+    { label: 'Assessoria para empresa', nome: 'Assessoria Corporativa', q: 'Que tipo de apoio sua empresa procura?',
+      subs: ['Jurídico contínuo (mensal)', 'Contratos', 'Trabalhista preventivo', 'Questão pontual', 'Outro'] },
+    { label: 'Não sei / Outro', nome: 'A definir', q: null, subs: null }
+  ];
+
+  const FAQ = [
+    { q: 'Atendem fora de São Paulo?', a: 'Sim. Além do atendimento presencial na Barra Funda, em São Paulo, o escritório atua em todo o Brasil de forma digital, com reuniões online e acompanhamento a distância.' },
+    { q: 'Qual o horário de atendimento?', a: 'De segunda a sexta, das 9h às 18h. Mensagens enviadas fora desse horário são respondidas no próximo dia útil.' },
+    { q: 'Onde fica o escritório?', a: 'Rua Joaquim Manuel de Macedo, 305, sala 64 – Barra Funda, São Paulo/SP – CEP 01136-010.', link: { href: 'https://www.google.com/maps/search/?api=1&query=Rua+Joaquim+Manuel+de+Macedo+305+Barra+Funda+Sao+Paulo+SP', text: 'Abrir no Google Maps' } },
+    { q: 'Como funcionam os honorários?', a: 'Os honorários são definidos após a análise do seu caso, de acordo com a complexidade da demanda, e explicados com transparência antes de qualquer contratação.' }
+  ];
+
+  const $ = (id) => document.getElementById(id);
+  const panel = $('tb-panel'), launcher = $('tb-launcher'), msgs = $('tb-messages'), opts = $('tb-options');
+  const form = $('tb-input'), text = $('tb-text'), extra = $('tb-input-extra'), info = $('tb-input-info'), skip = $('tb-skip');
+  const hint = $('tb-hint');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let state = {};
+  let run = 0; // invalida etapas antigas ao recomeçar
+  let started = false;
+  let pendingInput = null;
+
+  const sleep = (ms) => new Promise(r => setTimeout(r, reduce ? 0 : ms));
+  const scroll = () => { msgs.scrollTop = msgs.scrollHeight; };
+
+  async function bot(content, { alert = false, delay = 550 } = {}) {
+    const myRun = run;
+    const typing = document.createElement('div');
+    typing.className = 'tb-typing';
+    typing.setAttribute('aria-hidden', 'true');
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(typing); scroll();
+    await sleep(delay);
+    typing.remove();
+    if (myRun !== run) throw new Error('reset');
+    const el = document.createElement('div');
+    el.className = 'tb-msg tb-bot' + (alert ? ' tb-alert' : '');
+    if (typeof content === 'string') el.textContent = content; else el.appendChild(content);
+    msgs.appendChild(el); scroll();
+    return el;
+  }
+
+  function user(t) {
+    const el = document.createElement('div');
+    el.className = 'tb-msg tb-user';
+    el.textContent = t;
+    msgs.appendChild(el); scroll();
+  }
+
+  function clearControls() {
+    opts.innerHTML = '';
+    form.hidden = true; extra.hidden = true; skip.hidden = true;
+    pendingInput = null;
+  }
+
+  function options(list) {
+    clearControls();
+    list.forEach((o, i) => {
+      const el = document.createElement(o.href ? 'a' : 'button');
+      el.className = 'tb-opt' + (o.variant ? ' ' + o.variant : '');
+      if (o.href) { el.href = o.href; el.target = '_blank'; el.rel = 'noopener noreferrer'; }
+      else el.type = 'button';
+      if (o.icon === 'wa') el.innerHTML = '<svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>';
+      el.appendChild(document.createTextNode(o.label));
+      el.addEventListener('click', () => {
+        if (!o.href) { clearControls(); if (!o.silent) user(o.label); }
+        o.onClick && o.onClick();
+      });
+      opts.appendChild(el);
+      if (i === 0 && panel.contains(document.activeElement)) el.focus();
+    });
+    scroll();
+  }
+
+  function ask({ placeholder, min = 1, max = 800, optional = false, note = '', multiline = false }) {
+    return new Promise((resolve) => {
+      clearControls();
+      text.value = '';
+      text.placeholder = placeholder;
+      text.maxLength = max;
+      text.rows = multiline ? 3 : 1;
+      form.hidden = false;
+      info.textContent = note; info.classList.remove('tb-error');
+      extra.hidden = !note && !optional;
+      skip.hidden = !optional;
+      pendingInput = { resolve, min, optional, note };
+      text.focus();
+    });
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!pendingInput) return;
+    const v = text.value.trim();
+    if (v.length < pendingInput.min) {
+      extra.hidden = false;
+      info.textContent = pendingInput.min > 1 ? 'Escreva um pouco mais, por favor.' : 'Digite sua resposta.';
+      info.classList.add('tb-error');
+      text.focus();
+      return;
+    }
+    const { resolve } = pendingInput;
+    clearControls(); user(v); resolve(v);
+  });
+  text.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey && text.rows === 1) { e.preventDefault(); form.requestSubmit(); }
+  });
+  skip.addEventListener('click', () => {
+    if (!pendingInput) return;
+    const { resolve } = pendingInput;
+    clearControls(); user('Pular'); resolve('');
+  });
+
+  const waLink = (msg) => 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+
+  function buildMessage() {
+    const linhas = [];
+    if (state.urgente) linhas.push('⚠️ *CASO URGENTE*', '');
+    linhas.push('Olá! Fiz a triagem pelo site do escritório.', '');
+    linhas.push('*Nome:* ' + state.nome);
+    if (state.cidade) linhas.push('*Cidade:* ' + state.cidade);
+    linhas.push('*Perfil:* ' + state.perfil);
+    linhas.push('*Área:* ' + state.area);
+    if (state.assunto) linhas.push('*Assunto:* ' + state.assunto);
+    if (state.prazo) linhas.push('*Prazo / audiência:* ' + state.prazo);
+    if (state.processo) linhas.push('*Processo aberto:* ' + state.processo);
+    linhas.push('', '*Relato:* ' + state.resumo);
+    return linhas.join('\n');
+  }
+
+  // ===== Fluxo =====
+  async function start() {
+    run++; state = {}; msgs.innerHTML = ''; clearControls();
+    try {
+      await bot('Olá! Sou o assistente de triagem do Marques & Peixer Advogados.', { delay: 350 });
+      await bot('Vou fazer algumas perguntas rápidas para direcionar seu caso ao advogado certo. No final, você envia tudo pelo WhatsApp do escritório.');
+      menu();
+    } catch (e) {}
+  }
+
+  function menu() {
+    options([
+      { label: 'Iniciar triagem', variant: 'primary', onClick: perfil },
+      { label: 'Tenho uma dúvida rápida', onClick: () => faqMenu(true) },
+      { label: 'Falar direto no WhatsApp', variant: 'wa', icon: 'wa', href: waLink('Olá! Vim pelo site e gostaria de atendimento.') }
+    ]);
+  }
+
+  async function faqMenu(first) {
+    try {
+      await bot(first ? 'Claro! Escolha uma das perguntas:' : 'Posso ajudar com mais alguma coisa?');
+      options([
+        ...FAQ.map(f => ({ label: f.q, onClick: () => faqAnswer(f) })),
+        { label: 'Iniciar triagem', variant: 'primary', onClick: perfil }
+      ]);
+    } catch (e) {}
+  }
+
+  async function faqAnswer(f) {
+    try {
+      let content = f.a;
+      if (f.link) {
+        const wrap = document.createElement('div');
+        wrap.appendChild(document.createTextNode(f.a + '\n'));
+        const a = document.createElement('a');
+        a.href = f.link.href; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = f.link.text;
+        wrap.appendChild(a);
+        content = wrap;
+      }
+      await bot(content);
+      faqMenu(false);
+    } catch (e) {}
+  }
+
+  async function perfil() {
+    try {
+      await bot('Primeiro: o atendimento é para você ou para uma empresa?');
+      options([
+        { label: 'Para mim (pessoa física)', onClick: () => { state.perfil = 'Pessoa física'; area(); } },
+        { label: 'Para uma empresa', onClick: () => { state.perfil = 'Empresa'; area(); } }
+      ]);
+    } catch (e) {}
+  }
+
+  async function area() {
+    try {
+      await bot('Em qual dessas áreas o seu caso se encaixa melhor? Se não souber, tudo bem.');
+      let lista = AREAS;
+      if (state.perfil === 'Empresa') {
+        const emp = AREAS.find(a => a.nome === 'Assessoria Corporativa');
+        lista = [emp, ...AREAS.filter(a => a !== emp)];
+      }
+      options(lista.map(a => ({ label: a.label, onClick: () => { state.area = a.nome; state._area = a; subarea(); } })));
+    } catch (e) {}
+  }
+
+  async function subarea() {
+    const a = state._area;
+    try {
+      if (!a.subs) { prazo(); return; }
+      await bot(a.q);
+      options(a.subs.map(s => ({ label: s, onClick: () => { state.assunto = s; afterSub(); } })));
+    } catch (e) {}
+  }
+
+  async function afterSub() {
+    try {
+      if (state.assunto === 'Alguém foi preso agora') {
+        state.urgente = true;
+        await bot('Situações de prisão precisam de atendimento imediato. Recomendo falar agora mesmo com o escritório pelo WhatsApp.', { alert: true });
+        options([
+          { label: 'Falar agora no WhatsApp', variant: 'wa', icon: 'wa', href: waLink('⚠️ URGENTE – Vim pelo site. Uma pessoa foi presa agora e preciso de atendimento criminal imediato.') },
+          { label: 'Continuar a triagem', onClick: prazo }
+        ]);
+        return;
+      }
+      if (state.assunto === 'Já existe processo criminal') state.processo = 'Sim';
+      prazo();
+    } catch (e) {}
+  }
+
+  async function prazo() {
+    try {
+      await bot('Existe algum prazo correndo ou audiência marcada?');
+      options([
+        { label: 'Sim, nos próximos dias', onClick: () => { state.prazo = 'Sim, nos próximos dias'; state.urgente = true; processo(); } },
+        { label: 'Sim, mas não é imediato', onClick: () => { state.prazo = 'Sim, mas não é imediato'; processo(); } },
+        { label: 'Não', onClick: () => { state.prazo = 'Não'; processo(); } },
+        { label: 'Não sei', onClick: () => { state.prazo = 'Não sei'; processo(); } }
+      ]);
+    } catch (e) {}
+  }
+
+  async function processo() {
+    try {
+      if (state.processo) { resumo(); return; }
+      await bot('Já existe algum processo ou pedido aberto sobre isso (na Justiça, no INSS ou em outro órgão)?');
+      options(['Sim', 'Não', 'Não sei'].map(v => ({ label: v, onClick: () => { state.processo = v; resumo(); } })));
+    } catch (e) {}
+  }
+
+  async function resumo() {
+    try {
+      if (state.urgente && state.prazo === 'Sim, nos próximos dias') {
+        await bot('Entendi, vou marcar seu caso como urgente para o escritório.', { alert: true });
+      }
+      await bot('Agora conte, em poucas palavras, o que aconteceu. Não precisa de termos técnicos: o advogado vai conversar com você depois.');
+      state.resumo = await ask({ placeholder: 'Descreva sua situação...', min: 10, max: 800, multiline: true, note: 'Não envie documentos ou números como CPF aqui.' });
+      nome();
+    } catch (e) {}
+  }
+
+  async function nome() {
+    try {
+      await bot('Obrigado. Qual é o seu nome?');
+      state.nome = await ask({ placeholder: 'Seu nome', min: 2, max: 80 });
+      cidade();
+    } catch (e) {}
+  }
+
+  async function cidade() {
+    try {
+      await bot('Em qual cidade e estado você está?');
+      state.cidade = await ask({ placeholder: 'Ex.: São Paulo/SP', max: 80, optional: true });
+      consent();
+    } catch (e) {}
+  }
+
+  async function consent() {
+    try {
+      const wrap = document.createElement('div');
+      wrap.appendChild(document.createTextNode('Última etapa: seus dados serão usados apenas para o escritório retornar o contato, conforme nossa '));
+      const a = document.createElement('a');
+      a.href = 'privacidade.html'; a.target = '_blank'; a.textContent = 'Política de Privacidade';
+      wrap.appendChild(a);
+      wrap.appendChild(document.createTextNode('. Tudo é protegido por sigilo profissional. Você concorda?'));
+      await bot(wrap);
+      options([
+        { label: 'Concordo, ver resumo', variant: 'primary', onClick: summary },
+        { label: 'Não concordo', variant: 'ghost', onClick: declined }
+      ]);
+    } catch (e) {}
+  }
+
+  async function declined() {
+    try {
+      await bot('Sem problemas. Nenhum dado foi enviado. Se preferir, você pode ligar ou falar diretamente com o escritório pelo WhatsApp: (11) 95552-1515.');
+      options([
+        { label: 'Recomeçar', onClick: start, silent: true },
+        { label: 'Abrir WhatsApp', variant: 'wa', icon: 'wa', href: waLink('Olá! Vim pelo site e gostaria de atendimento.') }
+      ]);
+    } catch (e) {}
+  }
+
+  async function summary() {
+    try {
+      const box = document.createElement('div');
+      box.className = 'tb-summary';
+      const strong = document.createElement('strong');
+      strong.textContent = 'Resumo da sua triagem';
+      box.appendChild(strong);
+      const dl = document.createElement('dl');
+      const add = (k, v) => { if (!v) return; const dt = document.createElement('dt'); dt.textContent = k; const dd = document.createElement('dd'); dd.textContent = v; dl.append(dt, dd); };
+      add('Nome', state.nome); add('Cidade', state.cidade); add('Perfil', state.perfil); add('Área', state.area);
+      add('Assunto', state.assunto); add('Prazo', state.prazo); add('Processo', state.processo); add('Relato', state.resumo);
+      box.appendChild(dl);
+      const bubble = await bot(box);
+      bubble.classList.add('tb-summary');
+      await bot('Toque no botão abaixo: o WhatsApp vai abrir com tudo já escrito. É só enviar.');
+      options([
+        { label: 'Enviar pelo WhatsApp', variant: 'wa', icon: 'wa', href: waLink(buildMessage()), onClick: sent },
+        { label: 'Corrigir (recomeçar)', variant: 'ghost', onClick: start, silent: true }
+      ]);
+    } catch (e) {}
+  }
+
+  async function sent() {
+    try {
+      await sleep(600);
+      await bot('Pronto! Assim que você enviar a mensagem no WhatsApp, a equipe do Marques & Peixer retorna o contato. Obrigado pela confiança.');
+      options([
+        { label: 'Abrir o WhatsApp de novo', variant: 'wa', icon: 'wa', href: waLink(buildMessage()) },
+        { label: 'Nova triagem', variant: 'ghost', onClick: start, silent: true }
+      ]);
+    } catch (e) {}
+  }
+
+  // ===== Abrir / fechar =====
+  function open() {
+    panel.hidden = false;
+    document.body.classList.add('tb-open');
+    launcher.setAttribute('aria-expanded', 'true');
+    launcher.setAttribute('aria-label', 'Fechar assistente de triagem');
+    hideHint();
+    if (!started) { started = true; start(); }
+    setTimeout(() => { const f = opts.querySelector('.tb-opt') || (!form.hidden && text); f && f.focus(); }, 50);
+  }
+  function close() {
+    panel.hidden = true;
+    document.body.classList.remove('tb-open');
+    launcher.setAttribute('aria-expanded', 'false');
+    launcher.setAttribute('aria-label', 'Abrir assistente de triagem');
+    launcher.focus();
+  }
+  launcher.addEventListener('click', () => panel.hidden ? open() : close());
+  $('tb-close').addEventListener('click', close);
+  $('tb-restart').addEventListener('click', start);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) close(); });
+  document.querySelectorAll('[data-open-triagem]').forEach(el => el.addEventListener('click', (e) => { e.preventDefault(); open(); }));
+
+  // Aviso que aparece uma vez por visita
+  function hideHint() { hint.hidden = true; try { sessionStorage.setItem('tb-hint', '1'); } catch (e) {} }
+  let seen = false;
+  try { seen = sessionStorage.getItem('tb-hint') === '1'; } catch (e) {}
+  if (!seen) {
+    setTimeout(() => { if (panel.hidden) { hint.hidden = false; setTimeout(() => { if (!hint.hidden) hint.hidden = true; }, 12000); } }, 5000);
+  }
+  hint.addEventListener('click', (e) => { if (e.target.id !== 'tb-hint-close') open(); });
+  hint.addEventListener('keydown', (e) => { if (e.key === 'Enter') open(); });
+  $('tb-hint-close').addEventListener('click', (e) => { e.stopPropagation(); hideHint(); });
+})();
+</script>
+<!-- END: Assistente de Triagem -->
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
