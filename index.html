@@ -161,6 +161,32 @@
       .tb-hint { right: 92px; bottom: 32px; max-width: 200px; }
       body.tb-open .tb-launcher, body.tb-open .tb-hint { display: none; }
     }
+
+    /* ===== Carrossel das áreas de atuação: 1 card em destaque no centro ===== */
+    #atuacao { overflow-x: hidden; overflow-x: clip; }
+    .mp-carousel { --gap: 2rem; --card: min(620px, calc(100vw - 6rem)); }
+    @media (max-width: 767px) { .mp-carousel { --gap: .9rem; --card: calc(100vw - 4.5rem); } }
+    .mp-track {
+      position: relative; box-sizing: border-box; display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none;
+      width: 100vw; margin: -10px 0 0 calc(50% - 50vw); padding: 10px calc((100vw - var(--card)) / 2) 28px;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.9) calc(50% - var(--card) / 2 - var(--gap)), #000 calc(50% - var(--card) / 2), #000 calc(50% + var(--card) / 2), rgba(0,0,0,.9) calc(50% + var(--card) / 2 + var(--gap)), transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.9) calc(50% - var(--card) / 2 - var(--gap)), #000 calc(50% - var(--card) / 2), #000 calc(50% + var(--card) / 2), rgba(0,0,0,.9) calc(50% + var(--card) / 2 + var(--gap)), transparent 100%);
+    }
+    .mp-track::-webkit-scrollbar { display: none; }
+    .mp-track:focus-visible { outline: 2px solid #B8860B; outline-offset: -2px; }
+    .mp-slide { flex: 0 0 var(--card); min-width: 0; box-sizing: border-box; scroll-snap-align: center; opacity: .45; transform: scale(.94); transition: opacity .22s ease, transform .22s ease, border-color .3s, box-shadow .3s; }
+    .mp-track.mp-nosnap { scroll-snap-type: none; scroll-behavior: auto; }
+    .mp-track.mp-instant .mp-slide { transition: none; }
+    .mp-slide.is-active { opacity: 1; transform: none; }
+    .mp-slide.is-active:hover { transform: translateY(-2px); }
+    .mp-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 8px; }
+    .mp-arrow { width: 46px; height: 46px; border-radius: 9999px; border: 1px solid #D5AE62; background: #fff; color: #0C1A30; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s, color .2s, border-color .2s; box-shadow: 0 4px 14px -6px rgba(12,26,48,.25); }
+    .mp-arrow:hover { background: #0C1A30; color: #E4C994; border-color: #0C1A30; }
+    .mp-arrow svg { width: 20px; height: 20px; }
+    .mp-dots { display: flex; gap: 8px; }
+    .mp-dot { width: 9px; height: 9px; border-radius: 9999px; background: #E4C994; border: 0; padding: 0; cursor: pointer; transition: width .25s, background .25s; }
+    .mp-dot[aria-current="true"] { width: 28px; background: #B8860B; }
+    @media (prefers-reduced-motion: reduce) { .mp-track { scroll-behavior: auto; } }
 </style>
 <!-- Vercel Web Analytics (estatísticas de visitas, sem cookies) -->
 <script>
@@ -268,9 +294,10 @@
 <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-navy-900 mb-4">Áreas de Atuação</h2>
 <p class="text-slate-600 text-base sm:text-lg font-normal">Atendimento multidisciplinar de alta precisão, estruturado para pessoas físicas e jurídicas com abordagem estratégica e personalizada.</p>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+<div class="mp-carousel" id="areas-carousel">
+<div aria-label="Áreas de atuação (deslize para ver mais)" class="mp-track" role="region" tabindex="0">
 
-<div class="luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
+<div class="mp-slide luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
 <div>
 <div class="w-12 h-12 rounded-sm bg-warmcream border border-sand flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-colors"><svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
 <h3 class="font-serif text-2xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">Direito Civil</h3>
@@ -279,7 +306,7 @@
 <a class="inline-flex items-center text-xs uppercase tracking-wider font-bold text-gold-600 hover:text-navy-900 transition-colors pt-4 border-t border-sand" href="https://wa.me/5511955521515?text=Ol%C3%A1,%20gostaria%20de%20orienta%C3%A7%C3%A3o%20sobre%20Direito%20Civil." rel="noopener noreferrer" target="_blank"><span>Consultar especialista</span><span aria-hidden="true" class="ml-1 group-hover:translate-x-1 transition-transform">→</span></a>
 </div>
 
-<div class="luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
+<div class="mp-slide luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
 <div>
 <div class="w-12 h-12 rounded-sm bg-warmcream border border-sand flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-colors"><svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
 <h3 class="font-serif text-2xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">Direito Trabalhista</h3>
@@ -288,7 +315,7 @@
 <a class="inline-flex items-center text-xs uppercase tracking-wider font-bold text-gold-600 hover:text-navy-900 transition-colors pt-4 border-t border-sand" href="https://wa.me/5511955521515?text=Ol%C3%A1,%20gostaria%20de%20orienta%C3%A7%C3%A3o%20sobre%20Direito%20Trabalhista." rel="noopener noreferrer" target="_blank"><span>Consultar especialista</span><span aria-hidden="true" class="ml-1 group-hover:translate-x-1 transition-transform">→</span></a>
 </div>
 
-<div class="luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
+<div class="mp-slide luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
 <div>
 <div class="w-12 h-12 rounded-sm bg-warmcream border border-sand flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-colors"><svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
 <h3 class="font-serif text-2xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">Direito Previdenciário</h3>
@@ -297,7 +324,7 @@
 <a class="inline-flex items-center text-xs uppercase tracking-wider font-bold text-gold-600 hover:text-navy-900 transition-colors pt-4 border-t border-sand" href="https://wa.me/5511955521515?text=Ol%C3%A1,%20gostaria%20de%20orienta%C3%A7%C3%A3o%20sobre%20Direito%20Previdenci%C3%A1rio." rel="noopener noreferrer" target="_blank"><span>Consultar especialista</span><span aria-hidden="true" class="ml-1 group-hover:translate-x-1 transition-transform">→</span></a>
 </div>
 
-<div class="luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
+<div class="mp-slide luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
 <div>
 <div class="w-12 h-12 rounded-sm bg-warmcream border border-sand flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-colors"><svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
 <h3 class="font-serif text-2xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">Direito do Consumidor</h3>
@@ -306,7 +333,7 @@
 <a class="inline-flex items-center text-xs uppercase tracking-wider font-bold text-gold-600 hover:text-navy-900 transition-colors pt-4 border-t border-sand" href="https://wa.me/5511955521515?text=Ol%C3%A1,%20gostaria%20de%20orienta%C3%A7%C3%A3o%20sobre%20Direito%20do%20Consumidor." rel="noopener noreferrer" target="_blank"><span>Consultar especialista</span><span aria-hidden="true" class="ml-1 group-hover:translate-x-1 transition-transform">→</span></a>
 </div>
 
-<div class="luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
+<div class="mp-slide luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
 <div>
 <div class="w-12 h-12 rounded-sm bg-warmcream border border-sand flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-colors"><svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
 <h3 class="font-serif text-2xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">Direito Imobiliário</h3>
@@ -315,7 +342,7 @@
 <a class="inline-flex items-center text-xs uppercase tracking-wider font-bold text-gold-600 hover:text-navy-900 transition-colors pt-4 border-t border-sand" href="https://wa.me/5511955521515?text=Ol%C3%A1,%20gostaria%20de%20orienta%C3%A7%C3%A3o%20sobre%20Direito%20Imobili%C3%A1rio." rel="noopener noreferrer" target="_blank"><span>Consultar especialista</span><span aria-hidden="true" class="ml-1 group-hover:translate-x-1 transition-transform">→</span></a>
 </div>
 
-<div class="luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
+<div class="mp-slide luxury-card p-8 rounded-sm flex flex-col justify-between group border-t-2 border-t-gold-500">
 <div>
 <div class="w-12 h-12 rounded-sm bg-warmcream border border-sand flex items-center justify-center text-gold-600 mb-6 group-hover:bg-gold-500 group-hover:text-white transition-colors"><svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg></div>
 <h3 class="font-serif text-2xl font-bold text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">Direito Penal e Processual Penal</h3>
@@ -324,6 +351,12 @@
 <a class="inline-flex items-center text-xs uppercase tracking-wider font-bold text-gold-600 hover:text-navy-900 transition-colors pt-4 border-t border-sand" href="https://wa.me/5511955521515?text=Ol%C3%A1,%20preciso%20de%20atendimento%20em%20Direito%20Penal." rel="noopener noreferrer" target="_blank"><span>Consultar especialista</span><span aria-hidden="true" class="ml-1 group-hover:translate-x-1 transition-transform">→</span></a>
 </div>
 
+</div>
+<div class="mp-controls">
+<button aria-label="Áreas anteriores" class="mp-arrow" data-dir="-1" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+<div class="mp-dots" role="group" aria-label="Páginas do carrossel"></div>
+<button aria-label="Próximas áreas" class="mp-arrow" data-dir="1" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
 </div>
 </div>
 </section>
@@ -1134,6 +1167,96 @@ Olá! Posso ajudar a direcionar o seu caso em menos de 2 minutos.
       });
     }
   });
+</script>
+
+<script>
+  // Carrossel das áreas de atuação: 1 card em destaque, em loop infinito
+  (() => {
+    const root = document.getElementById('areas-carousel');
+    if (!root) return;
+    const track = root.querySelector('.mp-track');
+    const originais = [...track.querySelectorAll('.mp-slide')];
+    const total = originais.length;
+    const dotsBox = root.querySelector('.mp-dots');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DURACAO = 380; // ms da animação entre cards
+
+    // cópias antes e depois dos originais para o loop parecer infinito
+    const copia = (sl) => { const c = sl.cloneNode(true); c.setAttribute('data-clone', ''); return c; };
+    track.prepend(...originais.map(copia));
+    track.append(...originais.map(copia));
+    const todos = [...track.querySelectorAll('.mp-slide')];
+    let index = total;
+    let anim = null;
+
+    const alvo = (i) => todos[i].offsetLeft - (track.clientWidth - todos[i].offsetWidth) / 2;
+    const maisProximo = () => {
+      let melhor = index, dist = Infinity;
+      todos.forEach((sl, i) => { const d = Math.abs(alvo(i) - track.scrollLeft); if (d < dist) { dist = d; melhor = i; } });
+      return melhor;
+    };
+
+    function marcar(i) {
+      todos.forEach((sl, k) => {
+        const ativo = k === i;
+        sl.classList.toggle('is-active', ativo);
+        sl.setAttribute('aria-hidden', ativo ? 'false' : 'true');
+        sl.querySelectorAll('a').forEach(a => a.tabIndex = ativo ? 0 : -1);
+      });
+      [...dotsBox.children].forEach((d, k) => d.setAttribute('aria-current', k === i % total ? 'true' : 'false'));
+    }
+
+    // pula sem animação para o card equivalente no bloco do meio
+    function pular(i) {
+      track.classList.add('mp-nosnap', 'mp-instant');
+      index = i; marcar(i);
+      track.scrollLeft = alvo(i);
+      void track.offsetWidth;
+      requestAnimationFrame(() => track.classList.remove('mp-nosnap', 'mp-instant'));
+    }
+    const normalizar = () => { if (index < total || index >= 2 * total) pular((index % total) + total); };
+
+    function irPara(i) {
+      i = Math.max(0, Math.min(todos.length - 1, i));
+      index = i; marcar(i);                 // o card sobe na hora, sem esperar a rolagem
+      cancelAnimationFrame(anim);
+      const de = track.scrollLeft, para = alvo(i);
+      if (reduce) { track.scrollLeft = para; normalizar(); return; }
+      track.classList.add('mp-nosnap');
+      const t0 = performance.now();
+      const quadro = (agora) => {
+        const p = Math.min(1, (agora - t0) / DURACAO);
+        track.scrollLeft = de + (para - de) * (1 - Math.pow(1 - p, 3));
+        if (p < 1) anim = requestAnimationFrame(quadro);
+        else { anim = null; track.classList.remove('mp-nosnap'); normalizar(); }
+      };
+      anim = requestAnimationFrame(quadro);
+    }
+
+    for (let k = 0; k < total; k++) {
+      const d = document.createElement('button');
+      d.type = 'button'; d.className = 'mp-dot';
+      d.setAttribute('aria-label', 'Mostrar área ' + (k + 1) + ' de ' + total);
+      d.addEventListener('click', () => irPara(index - (index % total) + k));
+      dotsBox.appendChild(d);
+    }
+    todos.forEach((sl, i) => {
+      if (sl.hasAttribute('data-clone')) sl.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+      sl.addEventListener('click', (e) => { if (i !== index) { e.preventDefault(); irPara(i); } });
+    });
+    root.querySelectorAll('.mp-arrow').forEach(btn => btn.addEventListener('click', () => irPara(index + Number(btn.dataset.dir))));
+
+    // arrastar com o dedo / trackpad
+    let raf = null, fim = null;
+    track.addEventListener('scroll', () => {
+      if (anim) return;
+      if (!raf) raf = requestAnimationFrame(() => { raf = null; const c = maisProximo(); if (c !== index) { index = c; marcar(c); } });
+      clearTimeout(fim); fim = setTimeout(normalizar, 140);
+    }, { passive: true });
+
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => pular(index), 150); });
+    pular(total);
+  })();
 </script>
 </body>
 </html>
